@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0F1729;
+  --color-bg-elevated: #161F36;
+  --color-bg-soft: #1E2940;
+  --color-mint: #00E5A1;
+  --color-mint-hover: #00C68B;
+  --color-mint-soft: rgba(0, 229, 161, 0.12);
+  --color-text: #FFFFFF;
+  --color-text-muted: #8C9BB5;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+  --color-danger: #FF5C7C;
+  --color-warning: #FFC857;
+
+  --font-display: "Inter", system-ui, -apple-system, sans-serif;
+
+  --radius-xl: 18px;
+  --radius-lg: 12px;
+  --radius-md: 8px;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html, body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Заголовки: плотнее трекинг — без этого тёмная тема выглядит «дефолтно» */
+h1, h2, h3 {
+  letter-spacing: -0.022em;
+}
+
+/* Едва заметное зерно поверх фона. Убирает ощущение стерильной
+   заливки, из-за которого тёмные лендинги выглядят одинаково. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Тонкая сетка — фон первого экрана */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(120% 80% at 20% 0%, #000 0%, transparent 70%);
+}
+
+/* Glow effect для акцентных элементов */
+.glow-mint {
+  box-shadow: 0 0 24px 0 rgba(0, 229, 161, 0.25);
+}
+
+.glow-mint-strong {
+  box-shadow: 0 0 40px 0 rgba(0, 229, 161, 0.4);
+}
+
+/* Скрытый scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Анимация подсвечивания при ховере на карточке */
+@keyframes pulse-mint {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 229, 161, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(0, 229, 161, 0); }
+}
+.pulse-mint { animation: pulse-mint 2s ease-in-out infinite; }
